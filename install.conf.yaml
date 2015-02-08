@@ -1,3 +1,8 @@
-- clean: []
-- link: {}
+- clean: ['~']
+
+- link: 
+    ~/.vim: vim/
+    ~/.vimrc: vimrc
+    ~/.xinitrc: x/xinitrc
+    ~/.Xresources: x/Xresources
 - shell: []
