@@ -5,4 +5,6 @@
     ~/.vimrc: vimrc
     ~/.xinitrc: x/xinitrc
     ~/.Xresources: x/Xresources
-- shell: []
+    ~/.config/herbstluftwm: herbstluftwm/
+- shell:
+  - [git submodule update --remote --merge, Installing/updating submodules]
