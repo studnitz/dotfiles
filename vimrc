@@ -10,3 +10,6 @@ set background=dark
 colorscheme solarized
 set cursorline
 set colorcolumn=80
+"Backup in seperate folders to keep directories clean
+set backupdir=./.backup,.,/tmp
+set directory=.,./.backup,/tmp

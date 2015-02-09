@@ -1,6 +1,7 @@
 - clean: ['~']
 
 - link: 
+    ~/.bashrc: bashrc
     ~/.vim: vim/
     ~/.vimrc: vimrc
     ~/.xinitrc: x/xinitrc
