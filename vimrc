@@ -7,7 +7,7 @@ set number
 set smartcase
 set mouse=a
 set background=dark
-colorscheme solarized
+colorscheme default
 set cursorline
 set colorcolumn=80
 "Backup in seperate folders to keep directories clean
