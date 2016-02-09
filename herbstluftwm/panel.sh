@@ -122,13 +122,14 @@ hc pad $monitor $(($panel_height+$ypadding*2))
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
         battery=$(~/.config/herbstluftwm/panel/battery.sh)
-        right="$battery $separator^bg() $date $separator"
+        volume=$(~/.config/herbstluftwm/panel/volume.sh)
+        right="$volume $separator $battery $separator^bg() $date"
         if spotify=$(~/.config/herbstluftwm/panel/spotify.sh); then
             right="$spotify $separator $right"
         fi
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
-        width=$($textwidth "$font" "$right_text_only   ")
+        width=$($textwidth "$font" "$right_text_only     ")
         echo -n "^pa($(($panel_width - $width)))$right"
         echo
 

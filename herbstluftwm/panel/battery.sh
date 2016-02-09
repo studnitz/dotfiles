@@ -1,11 +1,11 @@
 #!/bin/bash
 
-icons="Ionicons:size=15"
+icons="Ionicons:pixelsize=15"
 battery=$(upower -e | grep BAT0)
 bat_percent=$(upower -i $battery | grep 'percentage' | grep -o '[0-9]*')
 bat_state=$(upower -i $battery | grep 'state' | awk '{print $2}')
 battery_icon="^fn($icons)^fn()"
-width=$((xftwidth "$icons" "")) # Calculate offset of icon
+width=$(xftwidth "$icons" "") # Calculate offset of icon
 
 if [[ "$bat_state" = "discharging" ]]
 then
@@ -27,4 +27,4 @@ else #Charging
 fi
 
 
-echo "$battery_icon^p($width)^fg() $bat_percent%"
+echo "$battery_icon^fg() $bat_percent%"

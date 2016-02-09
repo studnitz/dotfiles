@@ -4,7 +4,7 @@
 # After downloading it, run
 # install sp /usr/bin/
 
-icons="Ionicons:size=15"
+icons="Ionicons:pixelsize=15"
 icon_color="#C9FF1A"
 music_icon="^fg($icon_color)^fn($icons)^fn()^fg()"
 
