@@ -8,11 +8,13 @@ if [ -z "$geometry" ] ;then
     exit 1
 fi
 # geometry has the format W H X Y
-x=${geometry[0]}
-y=${geometry[1]}
-panel_width=${geometry[2]}
-panel_height=16
-font="-*-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"
+xpadding=100
+ypadding=18
+x=$((${geometry[0]}+$xpadding))
+y=$((${geometry[1]}+$ypadding))
+panel_width=$((${geometry[2]}-$xpadding*2))
+panel_height=24
+font="DejaVu Sans Mono:size=10"
 bgcolor=$(hc get frame_border_normal_color)
 selbg=$(hc get window_border_active_color)
 selfg='#101010'
@@ -20,12 +22,14 @@ selfg='#101010'
 ####
 # Try to find textwidth binary.
 # In e.g. Ubuntu, this is named dzen2-textwidth.
-if which textwidth &> /dev/null ; then
+if which xftwidth &> /dev/null ; then
+    textwidth="xftwidth";
+elif which textwidth &> /dev/null ; then
     textwidth="textwidth";
 elif which dzen2-textwidth &> /dev/null ; then
     textwidth="dzen2-textwidth";
 else
-    echo "This script requires the textwidth tool of the dzen2 project."
+    echo "This script requires either the xftwidth or textwidth tool."
     exit 1
 fi
 ####
@@ -52,7 +56,7 @@ else
     }
 fi
 
-hc pad $monitor $panel_height
+hc pad $monitor $(($panel_height+$ypadding*2))
 
 {
     ### Event generator ###
@@ -117,10 +121,14 @@ hc pad $monitor $panel_height
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
-        right="$separator^bg() $date $separator"
+        battery=$(~/.config/herbstluftwm/panel/battery.sh)
+        right="$battery $separator^bg() $date $separator"
+        if spotify=$(~/.config/herbstluftwm/panel/spotify.sh); then
+            right="$spotify $separator $right"
+        fi
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
-        width=$($textwidth "$font" "$right_text_only    ")
+        width=$($textwidth "$font" "$right_text_only   ")
         echo -n "^pa($(($panel_width - $width)))$right"
         echo
 

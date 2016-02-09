@@ -1,9 +1,14 @@
-#
-# ~/.bashrc
-#
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
+
+# Command not Found?
+[ -r /etc/profile.d/cnf.sh  ] && . /etc/profile.d/cnf.sh
+
+# Auto cd when just a patch
+shopt -s autocd
+
+# Check for Windows resize
+shopt -s checkwinsize
 
 PATH=$PATH:/home/snx/.gem/ruby/2.2.0/bin
 export PATH
@@ -17,3 +22,14 @@ alias ll='ls -la'
 alias pow='cat /sys/class/power_supply/BAT0/capacity'
 
 PS1='[\u@\h \W]\$ '
+
+# Python :D
+venv() {
+    local activate=~/.python/$1/bin/activate
+    if [ -e "$activate" ] ; then
+        source "$activate"
+    else
+        echo "Error: Not found: $activate"
+    fi
+}
+venv27() { venv 27 ; }
