@@ -8,6 +8,7 @@ if [ -z "$geometry" ] ;then
     exit 1
 fi
 # geometry has the format W H X Y
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 xpadding=100
 ypadding=18
 x=$((${geometry[0]}+$xpadding))
@@ -67,19 +68,43 @@ hc pad $monitor $(($panel_height+$ypadding*2))
 
     #mpc idleloop player &
     while true ; do
+        echo -e "spotify\t$($DIR/panel/spotify.sh)"
+        sleep 1 || break
+    done > >(uniq_linebuffered) &
+    spotifypid=$!
+
+    while true ; do
+        echo -e "volume\t$($DIR/panel/volume.sh)"
+        sleep 1 || break
+    done > >(uniq_linebuffered) &
+    volumepid=$!
+
+    while true ; do
+        echo -e "battery\t$($DIR/panel/battery.sh)"
+        sleep 10 || break
+    done > >(uniq_linebuffered) &
+    batterypid=$!
+
+    while true ; do
         # "date" output is checked once a second, but an event is only
         # generated if the output changed compared to the previous run.
         date +$'date\t^fg(#efefef)%H:%M^fg(#909090), ^fg(#efefef)%d.^fg(#909090)%m.%Y'
         sleep 1 || break
     done > >(uniq_linebuffered) &
-    childpid=$!
+    datepid=$!
     hc --idle
-    kill $childpid
+    kill $datepid
+    kill $spotifypid
+    kill $volumepid
+    kill $batterypid
 } 2> /dev/null | {
     IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
     visible=true
     date=""
     windowtitle=""
+    spotify=""
+    volume=""
+    battery=""
     while true ; do
 
         ### Output ###
@@ -121,10 +146,8 @@ hc pad $monitor $(($panel_height+$ypadding*2))
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
         # small adjustments
-        battery=$(~/.config/herbstluftwm/panel/battery.sh)
-        volume=$(~/.config/herbstluftwm/panel/volume.sh)
         right="$volume $separator $battery $separator^bg() $date"
-        if spotify=$(~/.config/herbstluftwm/panel/spotify.sh); then
+        if $DIR/panel/spotify.sh &> /dev/null; then
             right="$spotify $separator $right"
         fi
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
@@ -152,6 +175,15 @@ hc pad $monitor $(($panel_height+$ypadding*2))
             date)
                 #echo "resetting date" >&2
                 date="${cmd[@]:1}"
+                ;;
+            spotify)
+                spotify="${cmd[@]:1}"
+                ;;
+            volume)
+                volume="${cmd[@]:1}"
+                ;;
+            battery)
+                battery="${cmd[@]:1}"
                 ;;
             quit_panel)
                 exit
