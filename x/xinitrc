@@ -1,4 +1,0 @@
-#!/bin/sh
-
-feh -bg-fill ~/Downloads/aldebaran.jpg &
-compton -bcCGf -i 0.8 -e 0.8 -D 2 --vsync drm --sw-opti &

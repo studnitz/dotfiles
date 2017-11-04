@@ -4,8 +4,8 @@
     ~/.bashrc: bashrc
     ~/.vim: vim/
     ~/.vimrc: vimrc
-    ~/.xinitrc: x/xinitrc
     ~/.Xresources: x/Xresources
+    ~/.xprofile: x/xprofile
     ~/.config/herbstluftwm: herbstluftwm/
     ~/.inputrc: inputrc
 - shell:
