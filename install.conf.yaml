@@ -9,5 +9,6 @@
     ~/.config/herbstluftwm: herbstluftwm/
     ~/.inputrc: inputrc
     ~/.config/termite: termite/
+    ~/.config/compton.conf: compton.conf
 - shell:
   - [git submodule update --remote --merge, Installing/updating submodules]

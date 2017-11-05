@@ -1,4 +1,4 @@
-feh --bg-fill ~/Downloads/aldebaran.jpg &
-compton -bcCGf --vsync drm --sw-opti &
+feh --bg-fill ~/wall.jpg &
+compton --vsync drm --sw-opti &
 pulseaudio --start &
 xrandr --output HDMI1 --auto --right-of eDP1
