@@ -1,6 +1,7 @@
 set nocompatible
 execute pathogen#infect()
 syntax on
+set background=dark
 filetype plugin indent on
 set exrc
 set secure
@@ -8,8 +9,6 @@ set secure
 set number " line numbers
 set smartcase
 set mouse=a
-set background=dark
-colorscheme default
 set cursorline
 set colorcolumn=80
 set laststatus=2 "So we see airline

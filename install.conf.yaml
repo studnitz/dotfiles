@@ -8,5 +8,6 @@
     ~/.xprofile: x/xprofile
     ~/.config/herbstluftwm: herbstluftwm/
     ~/.inputrc: inputrc
+    ~/.config/termite: termite/
 - shell:
   - [git submodule update --remote --merge, Installing/updating submodules]

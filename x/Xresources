@@ -1,4 +1,4 @@
-#include "/home/snx/dotfiles/colors/monokai"
+#include "/home/snx/dotfiles/colors/solarized"
 
 !! Xft Settings
 Xft.dpi: 		96

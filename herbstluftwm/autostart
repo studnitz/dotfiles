@@ -8,7 +8,9 @@ hc() {
 
 hc emit_hook reload
 
-xsetroot -solid '#5A8E3A'
+xsetroot -solid '#5A8E3A' &
+feh --bg-fill ~/Downloads/aldebaran.jpg
+# colorscheme solarized
 syndaemon -i 0.5 -k -d
 
 # remove all existing keybindings
@@ -22,7 +24,7 @@ Mod=Mod4   # Use the super key as the main modifier
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close
-hc keybind $Mod-Return spawn urxvt
+hc keybind $Mod-Return spawn termite
 hc keybind $Mod-space spawn rofi -show run -font "DejaVu Sans Mono 12"
 
 # shortcuts
@@ -39,7 +41,7 @@ hc keybind XF86AudioRaiseVolume     spawn amixer -q set Master 5%+ unmute
 hc keybind XF86AudioLowerVolume     spawn amixer -q set Master 5%- unmute
 hc keybind XF86MonBrightnessDown    spawn xbacklight -dec 5
 hc keybind XF86MonBrightnessUp      spawn xbacklight -inc 5
-hc keybind XF86Display              spawn xrandr --output HDMI1 --right-of eDP1
+hc keybind XF86Display              spawn xrandr --output HDMI1 --auto --right-of eDP1
 
 # basic movement
 # focusing clients
@@ -65,7 +67,9 @@ hc keybind $Mod-Shift-l     shift right
 # splitting frames
 # create an empty frame at the specified direction
 hc keybind $Mod-u       split   bottom  0.5
+hc keybind $Mod-Shift-u split   top     0.5
 hc keybind $Mod-o       split   right   0.5
+hc keybind $Mod-Shift-o split   left    0.5
 # let the current frame explode into subframes
 hc keybind $Mod-Control-space split explode
 
@@ -132,7 +136,7 @@ hc set frame_bg_transparent 0
 hc set frame_transparent_width 3
 hc set frame_gap 25
 hc set frame_normal_opacity 50
-hc set frame_active_opacity 75
+hc set frame_active_opacity 100
 
 hc attr theme.active.color '#9fbc00'
 hc attr theme.normal.color '#454545'
